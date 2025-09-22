@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title-tutl</title>
+</head>
+<body>
+    <h1>Goods List</h1>
+    <ul>
+        {% for good in goods %}
+        <li><a href="{{ good.goods_id }}/">{{ good.goods_name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
