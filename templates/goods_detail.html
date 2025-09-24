@@ -10,6 +10,14 @@
   <h1>{{ goods.goods_name }}</h1>
   <img src="{{ goods.goods_img.url }}">
   <p>{{ goods.goods_descr }}</p>
-  <p>Price: {{ goods.goods_price }}</p>
+  <p>Цена: {{ goods.goods_price }}</p>
+
+  <h1>Положить в корзину</h1>
+<form method="post" action="{% url 'add_to_cart' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+    <input type="hidden" name="product" value="{{ goods.goods_id }}">
+<input type="submit" value="В корзину">
+</form>
 </body>
 </html>

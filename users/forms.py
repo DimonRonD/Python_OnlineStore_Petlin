@@ -6,7 +6,11 @@ class CartForm(forms.Form):
     quantity = forms.IntegerField(min_value=0)
 
 class OrderForm(forms.Form):
-    name = forms.CharField()
-    address = forms.CharField()
-    email = forms.EmailField()
-    cart = forms.ModelChoiceField(queryset=Cart.objects.all())
+    # name = forms.CharField()
+    # address = forms.CharField()
+    # email = forms.EmailField()
+    # cart = forms.ModelChoiceField(queryset=Cart.objects.all())
+    customer_id = forms.IntegerField(widget=forms.HiddenInput())
+
+class ToCartForm(forms.Form):
+    quantity = forms.IntegerField(min_value=0)

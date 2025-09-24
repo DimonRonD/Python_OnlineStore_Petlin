@@ -1,7 +1,10 @@
+from datetime import datetime
+from itertools import product
+
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from .models import Goods, Cart, Customers
-from .forms import CartForm, OrderForm
+from .models import Goods, Cart, Customers, Warehouse, Orders, Order_goods, Order_status, Status
+from .forms import CartForm, OrderForm, ToCartForm
 
 # Create your views here.
 def goods_list(request):
@@ -10,15 +13,19 @@ def goods_list(request):
 	return render(request, 'goods_list.html', context)
 
 def goods_detail(request, pk):
-	goods = Goods.objects.get(goods_id=pk)
-	context = {'goods': goods}
-	return render(request, 'goods_detail.html', context)
+	if request.method == 'POST':
+		pass
+	else:
+		form = ToCartForm()
+		goods = Goods.objects.get(goods_id=pk)
+		context = {'goods': goods, 'form': form,}
+		return render(request, 'goods_detail.html', context)
 
 def cart(request, customer_id):
 	if request.method == 'POST':
 		pass
 	else:
-		form = OrderForm()
+		form = OrderForm(initial={'customer_id': customer_id})
 		cart = Cart.objects.all().filter(Q(customer_id=customer_id))
 		total_cost = sum(item.goods_id.goods_price * item.goods_cnt for item in cart)
 		context = {'cart': cart,
@@ -48,4 +55,31 @@ def add_to_cart(request):
 
 def order(request):
 	if request.method == 'POST':
-		form = OrderForm(request.POST)
+		customer_id = request.POST['customer_id']
+		customer = Customers.objects.get(pk=customer_id)
+		cart = Cart.objects.all().filter(Q(customer_id=customer.customer_id))
+		order, create = Orders.objects.get_or_create(customer_id=customer, order_date=datetime.now())
+		for item in cart:
+			wh_cnt = Warehouse.objects.get(goods_id = item.goods_id)
+			print("--------------> ", item.goods_cnt, wh_cnt.goods_cnt)
+			if item.goods_cnt <= wh_cnt.goods_cnt:
+				print("--------------> ", item.goods_cnt, wh_cnt.goods_cnt)
+				wh_cnt.goods_cnt = wh_cnt.goods_cnt - item.goods_cnt
+				wh_cnt.save()
+				order_goods = Order_goods.objects.create(order_id=order, goods_id=item.goods_id, goods_cnt = item.goods_cnt)
+				order_goods.save()
+				item.delete()
+			else:
+				return render(request, 'order.html', {'answer':'Quantity dont match'})
+	else:
+		pass
+	new_order = Order_goods.objects.all().filter(order_id=order)
+	orders = Orders.objects.all().filter(customer_id=customer.customer_id)
+	order_goods = Order_goods.objects.all().filter(order_id=order)
+	context = {'orders': orders,
+			   'order_goods': order_goods,
+			   'new_order': new_order,
+			   'customer_id': customer.customer_id}
+
+	return render(request, 'order.html', context)
+
