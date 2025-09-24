@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table border="1">
+        {% for cart_element in cart %}
+          <tr>
+              <td>{{ cart_element.goods_id.goods_name }}</td>
+              <td>Price: {{ cart_element.goods_id.goods_price }}</td>
+              <td>Количество: {{ cart_element.goods_cnt }}</td>
+          </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

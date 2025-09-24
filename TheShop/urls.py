@@ -18,13 +18,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
-from users.views import goods_list, goods_detail
+
 from .settings import MEDIA_URL, MEDIA_ROOT
+
+from users.views import (goods_list,
+                        goods_detail,
+                        cart,
+                        add_to_cart,
+                         )
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('goods/', goods_list, name='goods_list'),
     path('goods/<int:pk>/', goods_detail, name='goods_detail'),
-    # path('add_to_cart/', add_to_cart, name='add_to_cart')
+    path('cart/<int:customer_id>/', cart, name='cart'),
+    path('add_to_cart/', add_to_cart, name='add_to_cart')
 ]
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
