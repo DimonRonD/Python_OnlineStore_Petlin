@@ -22,9 +22,10 @@ from django.conf.urls.static import static
 from .settings import MEDIA_URL, MEDIA_ROOT
 
 from users.views import (goods_list,
-                        goods_detail,
-                        cart,
-                        add_to_cart,
+                         goods_detail,
+                         cart,
+                         add_to_cart,
+                         order,
                          )
 
 urlpatterns = [
@@ -32,6 +33,7 @@ urlpatterns = [
     path('goods/', goods_list, name='goods_list'),
     path('goods/<int:pk>/', goods_detail, name='goods_detail'),
     path('cart/<int:customer_id>/', cart, name='cart'),
-    path('add_to_cart/', add_to_cart, name='add_to_cart')
+    path('add_to_cart/', add_to_cart, name='add_to_cart'),
+    path('order/', order, name='order'),
 ]
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

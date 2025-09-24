@@ -3,7 +3,7 @@ from .models import Goods, Cart
 
 class CartForm(forms.Form):
     product = forms.ModelChoiceField(queryset=Goods.objects.all())
-    quantity = forms.IntegerField()
+    quantity = forms.IntegerField(min_value=0)
 
 class OrderForm(forms.Form):
     name = forms.CharField()

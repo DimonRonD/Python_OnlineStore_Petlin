@@ -3,16 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/simple.css' %}">
 </head>
 <body>
     <table border="1">
         {% for cart_element in cart %}
           <tr>
               <td>{{ cart_element.goods_id.goods_name }}</td>
-              <td>Price: {{ cart_element.goods_id.goods_price }}</td>
+              <td>Цена: {{ cart_element.goods_id.goods_price }}</td>
               <td>Количество: {{ cart_element.goods_cnt }}</td>
           </tr>
         {% endfor %}
+        <tr>
+            <td colspan="2" align="left"><b>Итоговая сумма:</b></td>
+            <td colspan="1" align="right"><b>{{ total_cost }}</b></td>
+        </tr>
     </table>
+
+  <h1>Сделать заказ</h1>
+<form method="post" action="{% url 'order' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+<input type="submit" value="Заказать">
+</form>
 </body>
 </html>

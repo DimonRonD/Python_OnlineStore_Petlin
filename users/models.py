@@ -45,6 +45,7 @@ class Customers(models.Model):
   customer_address = models.TextField()
   customer_email = models.EmailField()
   customer_phone = models.IntegerField()
+  customer_password = models.CharField(max_length=30)
 
 class Status(models.Model):
   order_status_id = models.AutoField(primary_key=True)
@@ -71,5 +72,6 @@ class Order_goods(models.Model):
 class Cart(models.Model):
   customer_id = models.ForeignKey('Customers', on_delete=models.PROTECT)
   goods_id = models.ForeignKey('Goods', on_delete=models.PROTECT)
-  goods_cnt = models.IntegerField(null=False)
+  goods_cnt = models.IntegerField(null=False, default=0)
+
 
