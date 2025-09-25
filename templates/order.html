@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Список заказов</title>
-    {% load static %}
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
+<table><tr><td><a href="/goods/">Список товаров</a></td><td><a href="/order/{{ customer_id }}/">Мои заказы</a></td><td><a href="/cart/{{ customer_id }}/">Корзина</a></td></tr></table>
 {% if new_order %}
     <h1>Новый заказ</h1>
     <table border="1">
@@ -14,7 +14,9 @@
           <tr>
               <td>Номер заказа: {{ item.order_id.order_id }}</td>
               <td>Дата заказа: {{ item.order_id.order_date }}</td>
-              <td>Статус заказа: {{ item.order_id }}</td>
+          </tr>
+          <tr>
+              <td>Статус заказа: {{ item.order_id.order_status_id }}</td>
               <td>Товар: {{ item.goods_id.goods_name }}</td>
               <td>Количество: {{ item.goods_cnt }}</td>
               <td>Цена: {{ item.goods_id.goods_price }}</td>
@@ -28,7 +30,12 @@
             <table border="1" width="85%">
               <tr bgcolor="#7fffd4">
                   <td>Номер заказа: <b>{{ order.order_id }}</b></td>
-                  <td colspan="2">Дата заказа: {{ order.order_date }}</td>
+                  <td colspan="1">Дата заказа: {{ order.order_date }}</td>
+                  {% for statuses in order_statuses %}
+                    {% if statuses.order_id.order_id == order.order_id %}
+                        <td colspan="1"><a href="/order/{{ customer_id }}/{{ order.order_id }}/">Статус заказа: {{ statuses.order_status_id.status_name }}</a></td>
+                    {% endif %}
+                  {% endfor %}
               </tr>
 
                 {% for goods in order_goods %}

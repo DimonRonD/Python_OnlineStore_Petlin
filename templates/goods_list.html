@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title-tutl</title>
-        {% load static %}
-    <link rel="stylesheet" href="{% static 'css/simple.css' %}">
+    <title>Title-tutl </title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
+    <table><tr><td><a href="/goods/">Список товаров</a></td><td><a href="/order/{{ customer_id }}/">Мои заказы</a></td><td><a href="/cart/{{ customer_id }}/">Корзина</a></td></tr></table>
     <h1>Goods List</h1>
     <ul>
         {% for good in goods %}
-        <li><a href="{{ good.goods_id }}/">{{ good.goods_name }}</a></li>
+        <li><a href="{{ customer_id }}/{{ good.goods_id }}/">{{ good.goods_name }}</a></li>
         {% endfor %}
     </ul>
 </body>

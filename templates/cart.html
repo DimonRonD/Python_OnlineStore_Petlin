@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/simple.css' %}">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
+    <table><tr><td><a href="/goods/">Список товаров</a></td><td><a href="/order/{{ customer_id }}/">Мои заказы</a></td><td><a href="/cart/{{ customer_id }}/">Корзина</a></td></tr></table>
     <table border="1">
         {% for cart_element in cart %}
           <tr>
@@ -22,9 +22,10 @@
     </table>
 
   <h1>Сделать заказ</h1>
-<form method="post" action="{% url 'order' %}">
+<form method="post" action="{% url 'order' %}{{ customer_id }}/">
   {% csrf_token %}
   {{ form.as_p }}
+    <input type="hidden" name="customer_id" value="{{ customer_id }}">
 <input type="submit" value="Заказать">
 </form>
 </body>

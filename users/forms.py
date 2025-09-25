@@ -14,3 +14,6 @@ class OrderForm(forms.Form):
 
 class ToCartForm(forms.Form):
     quantity = forms.IntegerField(min_value=0)
+
+class LoginForm(forms.Form):
+    calendar = forms.CharField(label="calendar", max_length=100)
