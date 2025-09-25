@@ -1,7 +1,7 @@
 from datetime import datetime
 from itertools import product
 
-from django.db.models import Q
+from django.db.models import Q, Sum, F
 from django.shortcuts import render, redirect
 from .models import Goods, Cart, Customers, Warehouse, Orders, Order_goods, Order_status, Status
 from .forms import CartForm, OrderForm, ToCartForm
@@ -72,10 +72,30 @@ def order(request):
 			else:
 				return render(request, 'order.html', {'answer':'Quantity dont match'})
 	else:
-		pass
+		customer_id = 1
+		customer = Customers.objects.get(pk=customer_id)
+		orders = Orders.objects.all().filter(customer_id=customer.customer_id)
+		total_prices = {}
+		for order in orders:
+			total_price = Order_goods.objects.filter(
+				order_id=order
+			).aggregate(total=Sum(F('goods_cnt') * F('goods_id__goods_price')))['total'] or 0
+
+			total_prices[order.order_id] = total_price
+		# order_goods = Order_goods.objects.all().filter(order_id=order)
+		order_goods = Order_goods.objects.filter(order_id__in=orders).select_related('goods_id')
+		context = {'orders': orders,
+				   'order_goods': order_goods,
+				   'customer_id': customer.customer_id,
+				   'total_prices': total_prices,}
+
+		return render(request, 'order.html', context)
+
+
 	new_order = Order_goods.objects.all().filter(order_id=order)
 	orders = Orders.objects.all().filter(customer_id=customer.customer_id)
-	order_goods = Order_goods.objects.all().filter(order_id=order)
+	# order_goods = Order_goods.objects.all().filter(order_id=order)
+	order_goods = Order_goods.objects.filter(order_id__in=orders).select_related('goods_id')
 	context = {'orders': orders,
 			   'order_goods': order_goods,
 			   'new_order': new_order,

@@ -17,6 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
 from django.conf.urls.static import static
 
 from .settings import MEDIA_URL, MEDIA_ROOT
@@ -36,5 +37,5 @@ urlpatterns = [
     path('add_to_cart/', add_to_cart, name='add_to_cart'),
     path('order/', order, name='order'),
  #   path('order/', order, name='order'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

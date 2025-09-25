@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <title>Список заказов</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/simple.css' %}">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-<h1>Новый заказ</h1>
+{% if new_order %}
+    <h1>Новый заказ</h1>
     <table border="1">
         {% for item in new_order %}
           <tr>
               <td>Номер заказа: {{ item.order_id.order_id }}</td>
               <td>Дата заказа: {{ item.order_id.order_date }}</td>
-              <td>Статус заказа: {{ item.order_id.order_status_id.status_name }}</td>
+              <td>Статус заказа: {{ item.order_id }}</td>
               <td>Товар: {{ item.goods_id.goods_name }}</td>
               <td>Количество: {{ item.goods_cnt }}</td>
               <td>Цена: {{ item.goods_id.goods_price }}</td>
@@ -21,28 +22,47 @@
 
         {% endfor %}
     </table>
-    <table border="1">
+{% endif %}
+  <h1>Ваши заказы</h1>
         {% for order in orders %}
-          <tr>
-              <td>{{ order.order_id }}</td>
-              <td>Дата заказа: {{ order.order_date }}</td>
-          </tr>
+            <table border="1" width="85%">
+              <tr bgcolor="#7fffd4">
+                  <td>Номер заказа: <b>{{ order.order_id }}</b></td>
+                  <td colspan="2">Дата заказа: {{ order.order_date }}</td>
+              </tr>
+
+                {% for goods in order_goods %}
+                    {% if order.order_id == goods.order_id.order_id %}
+                      <tr>
+                          <td align="left">{{ goods.goods_id.goods_name }}</td>
+                          <td align="center">{{ goods.goods_cnt }}</td>
+                          <td align="right">{{ goods.goods_id.goods_price }}</td>
+                      </tr>
+                    {% endif %}
+
+                {% endfor %}
+                <tr>
+                    <td colspan="2">
+                        <b>Стоимость заказа</b>
+                    </td>
+                    <td colspan="1">
+                        {% load custom_filters %}
+                        <b>
+                        {{ total_prices|get_item:order.order_id }}
+                        </b>
+                    </td>
+                </tr>
+            </table>
+            <br>
+
         {% endfor %}
-    </table>
+
 
     <table border="1">
-        {% for goods in order_goods %}
-          <tr>
-              <td>Номер заказа: {{ goods.order_id.order_id }}</td>
-              <td>Дата заказа: {{ goods.order_id.order_date }}</td>
-              <td>Товар: {{ goods.goods_id.goods_name }}</td>
-              <td>Количество: {{ goods.goods_cnt }}</td>
-              <td>Цена: {{ goods.goods_id.goods_price }}</td>
-          </tr>
-        {% endfor %}
+
     </table>
 
-  <h1>Предыдущие заказы</h1>
+
 
 </body>
 </html>
