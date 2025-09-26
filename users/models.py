@@ -75,3 +75,10 @@ class Cart(models.Model):
   goods_cnt = models.IntegerField(null=False, default=0)
 
 
+class StockBalance(models.Model):
+  goods_id = models.OneToOneField(Goods, on_delete=models.CASCADE, related_name="balance")
+  quantity = models.PositiveIntegerField(default=0)
+
+  def __str__(self):
+    return f"{self.goods_id.goods_name}: {self.quantity}"
+
