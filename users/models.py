@@ -74,7 +74,7 @@ class Cart(models.Model):
   goods_id = models.ForeignKey('Goods', on_delete=models.PROTECT)
   goods_cnt = models.IntegerField(null=False, default=0)
 
-
+# ХЗ зачем этот класс, у меня остатки лежат в Warehouse. Но прикрутил, следуя заданию
 class StockBalance(models.Model):
   goods_id = models.OneToOneField(Goods, on_delete=models.CASCADE, related_name="balance")
   quantity = models.PositiveIntegerField(default=0)
