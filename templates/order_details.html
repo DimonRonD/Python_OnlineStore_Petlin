@@ -2,11 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Order detail</title>
+    <title>Подробности заказа {{ order.order_id }}</title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-<table><tr><td><a href="/goods/">Список товаров</a></td><td><a href="/order/{{ customer_id }}/">Мои заказы</a></td><td><a href="/cart/{{ customer_id }}/">Корзина</a></td></tr></table>
+<table>
+        <tr>
+            <td><a href="/goods/">Список товаров</a></td>
+            <td><a href="/order/{{ customer_id }}/">Мои заказы</a></td>
+            <td><a href="/cart/{{ customer_id }}/">Корзина</a></td>
+            <td><a href="/">Выход</a></td>
+        </tr>
+    </table>
   <h1>Подробная информация о заказе номер {{ order.order_id }}</h1>
   <h1>от {{ order.order_date }}</h1>
   <table>

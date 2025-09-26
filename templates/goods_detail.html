@@ -2,12 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-        {% load static %}
-    <link rel="stylesheet" href="{% static 'css/simple.css' %}">
+    <title>Описание товара {{ goods.goods_name }}</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-<table><tr><td><a href="/goods/">Список товаров</a></td><td><a href="/order/{{ customer_id }}/">Мои заказы</a></td><td><a href="/cart/{{ customer_id }}/">Корзина</a></td></tr></table>
+    <table>
+        <tr>
+            <td><a href="/goods/">Список товаров</a></td>
+            <td><a href="/order/{{ customer_id }}/">Мои заказы</a></td>
+            <td><a href="/cart/{{ customer_id }}/">Корзина</a></td>
+            <td><a href="/">Выход</a></td>
+        </tr>
+    </table>
   <h1>{{ goods.goods_name }}</h1>
   <img src="{{ goods.goods_img.url }}">
   <p>{{ goods.goods_descr }}</p>
@@ -18,7 +24,8 @@
   {% csrf_token %}
   {{ form.as_p }}
     <input type="hidden" name="product" value="{{ goods.goods_id }}">
-<input type="submit" value="В корзину">
+    <input type="hidden" name="customer_id" value="{{ customer_id }}">
+<input type="submit" value="В корзину">&nbsp;<input type=button value="Назад" onClick="javascript:history.go(-1);">
 </form>
 </body>
 </html>

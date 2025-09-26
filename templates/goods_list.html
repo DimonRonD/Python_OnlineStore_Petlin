@@ -2,16 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title-tutl </title>
+    <title>Список товаров</title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-    <table><tr><td><a href="/goods/">Список товаров</a></td><td><a href="/order/{{ customer_id }}/">Мои заказы</a></td><td><a href="/cart/{{ customer_id }}/">Корзина</a></td></tr></table>
-    <h1>Goods List</h1>
-    <ul>
-        {% for good in goods %}
-        <li><a href="{{ customer_id }}/{{ good.goods_id }}/">{{ good.goods_name }}</a></li>
+    <table>
+        <tr>
+            <td><a href="/goods/">Список товаров</a></td>
+            <td><a href="/order/{{ customer_id }}/">Мои заказы</a></td>
+            <td><a href="/cart/{{ customer_id }}/">Корзина</a></td>
+            <td><a href="/">Выход</a></td>
+        </tr>
+    </table>
+    <h1>Список товаров</h1>
+    <table>
+        {% for category in categoryes %}
+            <tr><td align="center"><b>{{ category.category_name }}</b></td></tr>
+            <tr><td>
+            {% for good in goods %}
+                {% if category.goods_category_id == good.goods_category_id.goods_category_id %}
+                     <table width="100%"><tr><td width="70%"><a href="{{ customer_id }}/{{ good.goods_id }}/">{{ good.goods_name }}</a></td><td width="30%">{{ good.goods_price }}</td></tr></table>
+                {% endif %}
+            {% endfor %}
+            </td></tr>
         {% endfor %}
-    </ul>
+    </table>
 </body>
 </html>

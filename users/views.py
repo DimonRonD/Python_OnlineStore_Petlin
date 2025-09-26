@@ -7,15 +7,18 @@ from django.template import loader
 from django.urls import reverse
 from django.core.cache import cache
 
-from .models import Goods, Cart, Customers, Warehouse, Orders, Order_goods, Order_status, Status
-from .forms import CartForm, OrderForm, ToCartForm, LoginForm
+from .models import Goods, Cart, Customers, Warehouse, Orders, Order_goods, Order_status, Status, Goods_category
+from .forms import CartForm, OrderForm, ToCartForm, LoginForm, RegisterForm
+
 
 # Create your views here.
 def goods_list(request):
     customer_id = cache.get('customer_id')
     goods = Goods.objects.all()
+    categoryes = Goods_category.objects.all()
     context = {'goods': goods,
-               'customer_id': customer_id,}
+               'customer_id': customer_id,
+               'categoryes': categoryes,}
     return render(request, 'goods_list.html', context)
 
 def goods_detail(request, customer_id, pk):
@@ -44,10 +47,11 @@ def cart(request, customer_id):
 def add_to_cart(request):
     if request.method == 'POST':
         form = CartForm(request.POST)
-        customer = Customers.objects.get(pk=1)
         if form.is_valid():
             product = form.cleaned_data['product']
             quantity = form.cleaned_data['quantity']
+            customer_id = form.cleaned_data['customer_id']
+            customer = Customers.objects.get(pk=customer_id)
             if quantity != 0:
                 cart, create = Cart.objects.get_or_create(customer_id=customer, goods_id=product)
                 cart.goods_cnt = quantity
@@ -56,7 +60,7 @@ def add_to_cart(request):
                 cart = Cart.objects.get(customer_id=customer, goods_id=product)
                 cart.delete()
 
-        return redirect('/cart/1/')
+        return redirect(f'/cart/{customer.customer_id}/')
     else:
         form = CartForm()
         return render(request, 'add_to_cart.html', {'form': form})
@@ -69,9 +73,7 @@ def order(request, customer_id):
         order, create = Orders.objects.get_or_create(customer_id=customer, order_date=datetime.now())
         for item in cart:
             wh_cnt = Warehouse.objects.get(goods_id = item.goods_id)
-            print("--------------> ", item.goods_cnt, wh_cnt.goods_cnt)
             if item.goods_cnt <= wh_cnt.goods_cnt:
-                print("--------------> ", item.goods_cnt, wh_cnt.goods_cnt)
                 wh_cnt.goods_cnt = wh_cnt.goods_cnt - item.goods_cnt
                 wh_cnt.save()
                 order_goods = Order_goods.objects.create(order_id=order, goods_id=item.goods_id, goods_cnt = item.goods_cnt)
@@ -96,7 +98,7 @@ def order(request, customer_id):
         order_goods = Order_goods.objects.filter(order_id__in=orders).select_related('goods_id')
         context = {'orders': orders,
                    'order_goods': order_goods,
-                   'customer_id': customer.customer_id,
+                   'customer_id': customer_id,
                    'total_prices': total_prices,
                    'order_statuses': order_statuses,}
 
@@ -117,7 +119,7 @@ def order(request, customer_id):
     context = {'orders': orders,
                'order_goods': order_goods,
                'new_order': new_order,
-               'customer_id': customer.customer_id,
+               'customer_id': customer_id,
                'total_prices': total_prices,
                'order_statuses': order_statuses,}
 
@@ -153,4 +155,25 @@ def auth_site(request):
             return HttpResponse(f"Нихера не вышло {e}")
     else:
         return HttpResponse(rendered_page)
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            customer = Customers.objects.create(
+                customer_name = form.cleaned_data['customer_name'],
+                customer_surname = form.cleaned_data['customer_surname'],
+                customer_patronym = form.cleaned_data['customer_patronym'],
+                customer_address = form.cleaned_data['customer_address'],
+                customer_email = form.cleaned_data['customer_email'],
+                customer_phone = form.cleaned_data['customer_phone'],
+                customer_password = form.cleaned_data['customer_password'],
+            )
+        redirect_url = reverse("redirect")
+        return HttpResponseRedirect(redirect_url)
+    else:
+        form = RegisterForm()
+        context = {'form': form}
+        return render(request, 'register.html', context)
+
 

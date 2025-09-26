@@ -29,11 +29,13 @@ from users.views import (goods_list,
                          order,
                          order_detail,
                          auth_site,
+                         register,
                          )
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", auth_site),
+    path("redirect", auth_site, name="redirect"),
     path('goods/', goods_list, name='goods_list'),
     path('goods/<int:customer_id>/<int:pk>/', goods_detail, name='goods_detail'),
     path('cart/<int:customer_id>/', cart, name='cart'),
@@ -41,5 +43,6 @@ urlpatterns = [
     path('order/', order, name='order'),
     path('order/<int:customer_id>/', order, name='order'),
     path('order/<int:customer_id>/<int:order_id>/', order_detail, name='order_detail'),
+    path('register', register, name='register'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

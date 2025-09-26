@@ -6,7 +6,14 @@
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-<table><tr><td><a href="/goods/">Список товаров</a></td><td><a href="/order/{{ customer_id }}/">Мои заказы</a></td><td><a href="/cart/{{ customer_id }}/">Корзина</a></td></tr></table>
+<table>
+        <tr>
+            <td><a href="/goods/">Список товаров</a></td>
+            <td><a href="/order/{{ customer_id }}/">Мои заказы</a></td>
+            <td><a href="/cart/{{ customer_id }}/">Корзина</a></td>
+            <td><a href="/">Выход</a></td>
+        </tr>
+    </table>
 {% if new_order %}
     <h1>Новый заказ</h1>
     <table border="1">
@@ -26,6 +33,7 @@
     </table>
 {% endif %}
   <h1>Ваши заказы</h1>
+    {% if orders %}
         {% for order in orders %}
             <table border="1" width="85%">
               <tr bgcolor="#7fffd4">
@@ -63,12 +71,12 @@
             <br>
 
         {% endfor %}
+    {% else %}
 
-
-    <table border="1">
-
-    </table>
-
+        <table border="1">
+            <tr><td>У вас пока нет заказов :(</td></tr>
+        </table>
+    {% endif %}
 
 
 </body>

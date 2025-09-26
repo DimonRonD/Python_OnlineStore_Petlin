@@ -6,19 +6,31 @@
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-    <table><tr><td><a href="/goods/">Список товаров</a></td><td><a href="/order/{{ customer_id }}/">Мои заказы</a></td><td><a href="/cart/{{ customer_id }}/">Корзина</a></td></tr></table>
-    <table border="1">
-        {% for cart_element in cart %}
-          <tr>
-              <td>{{ cart_element.goods_id.goods_name }}</td>
-              <td>Цена: {{ cart_element.goods_id.goods_price }}</td>
-              <td>Количество: {{ cart_element.goods_cnt }}</td>
-          </tr>
-        {% endfor %}
+    <table>
         <tr>
-            <td colspan="2" align="left"><b>Итоговая сумма:</b></td>
-            <td colspan="1" align="right"><b>{{ total_cost }}</b></td>
+            <td><a href="/goods/">Список товаров</a></td>
+            <td><a href="/order/{{ customer_id }}/">Мои заказы</a></td>
+            <td><a href="/cart/{{ customer_id }}/">Корзина</a></td>
+            <td><a href="/">Выход</a></td>
         </tr>
+    </table>
+    <h1>Корзина</h1>
+    <table border="1">
+        {% if cart %}
+            {% for cart_element in cart %}
+              <tr>
+                  <td>{{ cart_element.goods_id.goods_name }}</td>
+                  <td>Цена: {{ cart_element.goods_id.goods_price }}</td>
+                  <td>Количество: {{ cart_element.goods_cnt }}</td>
+              </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2" align="left"><b>Итоговая сумма:</b></td>
+                <td colspan="1" align="right"><b>{{ total_cost }}</b></td>
+            </tr>
+        {% else %}
+            <tr><td>В вашей корзине сейчас нет товаров</td></tr>
+        {% endif %}
     </table>
 
   <h1>Сделать заказ</h1>

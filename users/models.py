@@ -44,7 +44,7 @@ class Customers(models.Model):
   customer_patronym = models.CharField(max_length=100)
   customer_address = models.TextField()
   customer_email = models.EmailField()
-  customer_phone = models.IntegerField()
+  customer_phone = models.CharField(max_length=15)
   customer_password = models.CharField(max_length=30)
 
 class Status(models.Model):
