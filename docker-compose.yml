@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: shoppy
+      POSTGRES_PASSWORD: shoppy
+      POSTGRES_DB: theshop
+    ports:
+      - 15432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  web:
+    build: .
+    command: >
+      sh -c "python manage.py migrate && python manage.py collectstatic --no-input && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/TheShop
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+volumes:
+    db-data:
+
+
+
+
