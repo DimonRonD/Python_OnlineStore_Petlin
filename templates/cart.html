@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+    <table>
+        <tr>
+            <td><a href="/goods/">Список товаров</a></td>
+            <td><a href="/order/{{ customer_id }}/">Мои заказы</a></td>
+            <td><a href="/cart/{{ customer_id }}/">Корзина</a></td>
+            <td><a href="/">Выход</a></td>
+        </tr>
+    </table>
+    <h1>Корзина</h1>
+    <table border="1">
+        {% if cart %}
+            {% for cart_element in cart %}
+              <tr>
+                  <td>{{ cart_element.goods_id.goods_name }}</td>
+                  <td>Цена: {{ cart_element.goods_id.goods_price }}</td>
+                  <td>Количество: {{ cart_element.goods_cnt }}</td>
+              </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2" align="left"><b>Итоговая сумма:</b></td>
+                <td colspan="1" align="right"><b>{{ total_cost }}</b></td>
+            </tr>
+        {% else %}
+            <tr><td>В вашей корзине сейчас нет товаров</td></tr>
+        {% endif %}
+    </table>
+
+  <h1>Сделать заказ</h1>
+<form method="post" action="{% url 'order' %}{{ customer_id }}/">
+  {% csrf_token %}
+  {{ form.as_p }}
+    <input type="hidden" name="customer_id" value="{{ customer_id }}">
+<input type="submit" value="Заказать">
+</form>
+</body>
+</html>

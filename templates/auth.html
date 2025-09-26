@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Login Form</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Вход в личный календарь</h2>
+                <p>Введите пароль, полученный в боте с помощью команды /putite</p>
+            </div>
+            <form class="login-form" id="loginForm" action="." method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email">
+                        <label for="password">Пароль</label>
+                        <input type="password" id="password" name="password" required autocomplete="current-password">
+
+                        <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                            <span class="toggle-icon"></span>
+                        </button>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <span class="btn-text">Sign In</span>
+                    <span class="btn-loader"></span>
+                </button>
+
+            </form>
+
+            <div class="signup-link">
+                <p><a href="register">Регистрация</a></p>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

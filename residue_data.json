@@ -1,0 +1,30 @@
+[
+    {
+        "goods_id": 3,
+        "goods_name": "iPhone Air",
+        "goods_brand": "Apple",
+        "goods_category": "Smartphone",
+        "goods_quantity": 999
+    },
+    {
+        "goods_id": 2,
+        "goods_name": "iPhone 17 Pro Max",
+        "goods_brand": "Apple",
+        "goods_category": "Smartphone",
+        "goods_quantity": 371
+    },
+    {
+        "goods_id": 4,
+        "goods_name": "Galaxy S24 Ultra",
+        "goods_brand": "Samsung",
+        "goods_category": "Smartphone",
+        "goods_quantity": 888
+    },
+    {
+        "goods_id": 1,
+        "goods_name": "iPhone 17",
+        "goods_brand": "Apple",
+        "goods_category": "Smartphone",
+        "goods_quantity": 687
+    }
+]
