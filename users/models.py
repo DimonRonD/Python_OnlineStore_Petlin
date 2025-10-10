@@ -37,7 +37,7 @@ class Warehouse(models.Model):
   def __str__(self):
     return f"{self.goods_id}: {self.goods_cnt}"
 
-class Customers(models.Model):
+class Customers(AbstractUser):
   customer_id = models.AutoField(primary_key=True)
   customer_name = models.CharField(max_length=50)
   customer_surname = models.CharField(max_length=50)
