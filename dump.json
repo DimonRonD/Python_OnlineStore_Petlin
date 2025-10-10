@@ -111,7 +111,7 @@
     "fields": {
       "warehouse_id": 1,
       "goods_id": 4,
-      "goods_cnt": 64
+      "goods_cnt": 888
     }
   },
   {
@@ -120,7 +120,7 @@
     "fields": {
       "warehouse_id": 1,
       "goods_id": 3,
-      "goods_cnt": 86
+      "goods_cnt": 999
     }
   },
   {
@@ -1825,6 +1825,42 @@
     }
   },
   {
+    "model": "auth.permission",
+    "pk": 69,
+    "fields": {
+      "name": "Can add stock balance",
+      "content_type": 18,
+      "codename": "add_stockbalance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 70,
+    "fields": {
+      "name": "Can change stock balance",
+      "content_type": 18,
+      "codename": "change_stockbalance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 71,
+    "fields": {
+      "name": "Can delete stock balance",
+      "content_type": 18,
+      "codename": "delete_stockbalance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 72,
+    "fields": {
+      "name": "Can view stock balance",
+      "content_type": 18,
+      "codename": "view_stockbalance"
+    }
+  },
+  {
     "model": "contenttypes.contenttype",
     "pk": 1,
     "fields": {
@@ -1958,6 +1994,14 @@
     "fields": {
       "app_label": "users",
       "model": "brand"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 18,
+    "fields": {
+      "app_label": "users",
+      "model": "stockbalance"
     }
   },
   {

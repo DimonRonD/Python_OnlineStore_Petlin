@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'theshop',
         'USER': 'shoppy',
         'PASSWORD': 'shoppy',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
