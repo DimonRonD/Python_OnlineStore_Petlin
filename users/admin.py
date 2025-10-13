@@ -4,7 +4,6 @@ from users.models import GoodCategory, Good, Warehouse, Customer, Status, Order,
 
 
 # Register your models here.
-# admin.site.register(User, UserAdmin)
 admin.site.register(GoodCategory)
 admin.site.register(Good)
 admin.site.register(Warehouse)

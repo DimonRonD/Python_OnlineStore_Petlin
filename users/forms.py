@@ -1,21 +1,20 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Good, Cart, Customer
+from .models import Good, Customer
 
 class CartForm(forms.Form):
     product = forms.ModelChoiceField(queryset=Good.objects.all())
     quantity = forms.IntegerField(min_value=0)
 
 class OrderForm(forms.Form):
-    # name = forms.CharField()
-    # address = forms.CharField()
-    # email = forms.EmailField()
-    # cart = forms.ModelChoiceField(queryset=Cart.objects.all())
     customer_id = forms.IntegerField(widget=forms.HiddenInput())
 
 class ToCartForm(forms.Form):
     quantity = forms.IntegerField(min_value=0)
 
+"""
+    Логин передан на стандартного пользователя
+"""
 class LoginForm(ModelForm):
     class Meta:
         model = Customer
@@ -24,6 +23,9 @@ class LoginForm(ModelForm):
             "password": forms.PasswordInput
         }
 
+"""
+    Регистрация переделана на стандартного пользователя
+"""
 class RegisterForm(ModelForm):
     class Meta:
         model = Customer
