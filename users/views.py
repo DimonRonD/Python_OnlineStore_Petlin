@@ -78,18 +78,58 @@ def order(request):
                 wh_cnt.goods_cnt = wh_cnt.goods_cnt - item.goods_cnt
                 wh_cnt.save()
                 order_goods = OrderGood.objects.create(order_id=order, goods_id=item.goods_id, goods_cnt = item.goods_cnt)
-                print(order_goods)
                 order_goods.save()
                 item.delete()
                 status = Status.objects.get(pk=1)
                 order_status, create = OrderStatus.objects.get_or_create(order_id=order, sdate=datetime.now(), edate ='2099-01-01', order_status_id=status)
                 order_status.save()
 
+                new_order = OrderGood.objects.all().filter(order_id=order)
+                orders = Order.objects.all().filter(customer_id=customer).order_by('-order_date')
+                order_statuses = OrderStatus.objects.select_related('order_status_id').all().filter(
+                    Q(edate='2099-01-01'))
+
+                total_prices = {}
+                for order in orders:
+                    total_price = OrderGood.objects.filter(
+                        order_id=order
+                    ).aggregate(total=Sum(F('goods_cnt') * F('goods_id__goods_price')))['total'] or 0
+                    total_prices[order.order_id] = total_price
+
+                order_goods = OrderGood.objects.filter(order_id__in=orders).select_related('goods_id')
+                context = {'orders': orders,
+                           'order_goods': order_goods,
+                           'total_prices': total_prices,
+                           'new_order': new_order,
+                           'order_statuses': order_statuses, }
+
+                return render(request, 'order.html', context)
+
             else:
                 """
                     Вот тут ответ, что количества товара недостаточно
                 """
-                return render(request, 'order.html', {'answer':'Вы хотите заказать товара больше, чем есть на складе'})
+                order.delete()
+                orders = Order.objects.all().filter(customer_id=customer).order_by('-order_date')
+                order_statuses = OrderStatus.objects.select_related('order_status_id').all().filter(
+                    Q(edate='2099-01-01'))
+
+                total_prices = {}
+                for order in orders:
+                    total_price = OrderGood.objects.filter(
+                        order_id=order
+                    ).aggregate(total=Sum(F('goods_cnt') * F('goods_id__goods_price')))['total'] or 0
+                    total_prices[order.order_id] = total_price
+
+                order_goods = OrderGood.objects.filter(order_id__in=orders).select_related('goods_id')
+                answer = "Вы хотите заказать товара больше, чем есть на складе"
+                context = {'orders': orders,
+                           'order_goods': order_goods,
+                           'total_prices': total_prices,
+                           'answer': answer,
+                           'order_statuses': order_statuses, }
+
+                return render(request, 'order.html', context)
     else:
         orders = Order.objects.all().filter(customer_id=customer).order_by('-order_date')
         order_statuses = OrderStatus.objects.select_related('order_status_id').all().filter(Q(edate='2099-01-01'))
@@ -108,25 +148,7 @@ def order(request):
 
         return render(request, 'order.html', context)
 
-    new_order = OrderGood.objects.all().filter(order_id__in=order)
-    orders = Order.objects.all().filter(customer_id=customer.customer_id)
-    total_prices = {}
-    for order in orders:
-        total_price = OrderGood.objects.filter(
-            order_id=order
-        ).aggregate(total=Sum(F('goods_cnt') * F('goods_id__goods_price')))['total'] or 0
 
-        total_prices[order.order_id] = total_price
-    order_statuses = OrderStatus.objects.select_related('order_status_id').all().filter(Q(edate='2099-01-01'))
-    order_goods = OrderGood.objects.filter(order_id__in=orders).select_related('goods_id')
-    context = {'orders': orders,
-               'order_goods': order_goods,
-               'new_order': new_order,
-               'customer_id': customer_id,
-               'total_prices': total_prices,
-               'order_statuses': order_statuses,}
-
-    return render(request, 'order.html', context)
 
 def order_detail(request, order_id):
     order = Order.objects.get(pk=order_id)
