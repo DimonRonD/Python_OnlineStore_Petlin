@@ -1,4 +1,5 @@
 from django import forms
+from django.core import validators
 from django.forms import ModelForm
 from .models import Good, Customer
 
@@ -11,6 +12,17 @@ class OrderForm(forms.Form):
 
 class ToCartForm(forms.Form):
     quantity = forms.IntegerField(min_value=0)
+
+    def __init__(self, *args, **kwargs):
+        # Получаем переданный max_value
+        self.max_value = kwargs.pop('max_value', None)
+
+        super(ToCartForm, self).__init__(*args, **kwargs)
+
+        if self.max_value is not None:
+            # Устанавливаем ограничение на максимальное количество товаров
+            self.fields['quantity'].widget.attrs.update({'max': self.max_value})
+            self.fields['quantity'].validators.append(validators.MaxValueValidator(self.max_value))
 
 """
     Логин передан на стандартного пользователя

@@ -22,10 +22,12 @@ def goods_list(request):
 def goods_detail(request, pk):
     if request.method != 'GET':
         return HttpResponseNotAllowed(['GET'])
-    form = ToCartForm()
+    cnt = Warehouse.objects.get(goods_id=pk)
+    form = ToCartForm(max_value=cnt.goods_cnt)
     goods = Good.objects.get(goods_id=pk)
     context = {'goods': goods,
                'form': form,
+               'whcnt': cnt,
                }
     return render(request, 'goods_detail.html', context)
 

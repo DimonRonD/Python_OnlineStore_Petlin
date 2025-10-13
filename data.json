@@ -1,5 +1,68 @@
 [
   {
+    "model": "users.customer",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$G0u2UP6p9rQlvK4C75zMYn$r1CJ+/wCFJuVIymZlDWBC08S8iR7vTeiI/H8KWWM2hg=",
+      "last_login": "2025-10-13T12:48:21.842",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "aadmin@admin.min",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-10-13T12:45:58.324",
+      "patronym_name": "",
+      "address": "",
+      "phone": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.customer",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$wFh4i2YseuWmOHgzBQUSJr$yDUVDagipQf3zutmw5AmBzy9PUTuITNbilEjJlwCBAE=",
+      "last_login": "2025-10-13T12:48:07.835",
+      "is_superuser": false,
+      "username": "petr@iv.an",
+      "first_name": "Petr",
+      "last_name": "Petrov",
+      "email": "petr@iv.an",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-10-13T12:47:23.273",
+      "patronym_name": "Petrovich",
+      "address": "",
+      "phone": "+79998887766",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.customer",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$t6GhiVJSan699B7KQTSb1s$UEVTKZM4sdvOVlsgKZRSQYdFYl1MTZVEvYPGI2Wv9Ek=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "ivan@iv.an",
+      "first_name": "Ivan",
+      "last_name": "Ivanov",
+      "email": "ivan@iv.an",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-10-13T12:47:59.911",
+      "patronym_name": "Ivanovich",
+      "address": "",
+      "phone": "+71112223344",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
     "model": "users.brand",
     "pk": 1,
     "fields": {
@@ -14,6 +77,27 @@
     }
   },
   {
+    "model": "users.brand",
+    "pk": 3,
+    "fields": {
+      "brand_name": "Honor"
+    }
+  },
+  {
+    "model": "users.brand",
+    "pk": 4,
+    "fields": {
+      "brand_name": "POCO"
+    }
+  },
+  {
+    "model": "users.brand",
+    "pk": 5,
+    "fields": {
+      "brand_name": "Huawei"
+    }
+  },
+  {
     "model": "users.goodcategory",
     "pk": 1,
     "fields": {
@@ -25,6 +109,13 @@
     "pk": 2,
     "fields": {
       "category_name": "Tablet"
+    }
+  },
+  {
+    "model": "users.goodcategory",
+    "pk": 3,
+    "fields": {
+      "category_name": "Notebooks"
     }
   },
   {
@@ -88,6 +179,42 @@
     }
   },
   {
+    "model": "users.good",
+    "pk": 6,
+    "fields": {
+      "goods_name": "Honor MagicBook X16 2025 AMD Ноутбук 16\", AMD Ryzen 5 6600HS, RAM 16 ГБ, SSD 512 ГБ, AMD Radeon 660M, Без системы, (5301APLM), серый, Русская раскладка",
+      "goods_descr": "Комплектация\r\nАдаптер питания USB-C (65 Вт)\r\nКабель зарядного устройства (USB-C)\r\nКраткое руководство по началу работы\r\nГарантийный талон",
+      "goods_price": "44540.00",
+      "goods_img": "goods/iScreen_Shoter_-_Safari_-_251013162803_eWqJSBv.jpg",
+      "goods_category_id": 3,
+      "brand_id": 3
+    }
+  },
+  {
+    "model": "users.good",
+    "pk": 7,
+    "fields": {
+      "goods_name": "HUAWEI MateBook D14 2024 Ноутбук 14\", Intel Core i5-12450H, RAM 8 ГБ, SSD 512 ГБ, Intel UHD Graphics, Windows Home, (53013XFA), серый металлик, Русская раскладка",
+      "goods_descr": "Комплектация\r\nHUAWEI MateBook D 14 2023 × 1\r\nАдаптер питания USB-C 65 Вт (монолитная конструкция) × 1\r\nКраткое руководство пользователя × 1",
+      "goods_price": "43288.00",
+      "goods_img": "goods/iScreen_Shoter_-_Safari_-_251013165553.jpg",
+      "goods_category_id": 3,
+      "brand_id": 5
+    }
+  },
+  {
+    "model": "users.good",
+    "pk": 8,
+    "fields": {
+      "goods_name": "Poco Планшет POCO PAD Глобальная версия, 12.1\" 8 ГБ/256 ГБ, серый",
+      "goods_descr": "Глобальная версия POCO Pad с оригинальным зарядным устройством европейского стандарта!\r\nПроцессор ----------- Восьмиядерный процессор Snapdragon 7s Gen 2\r\nЭкран -------- 12,1-дюймовый ЖК-дисплей, 120 Гц, 2,5 К\r\n• Частота обновления: до 120 Гц.\r\n• Частота дискретизации сенсорного экрана: 240 Гц.\r\nОперативная память + ПЗУ -- 8 ГБ + 256 ГБ\r\nКамера ------ задняя камера 8 МП, передняя камера 8 МП\r\nАккумулятор ------ 10000 мАч (тип.), поддерживает быструю зарядку 33 Вт.\r\nОС ----------- Xiaomi HyperOS, глобальная версия, поддержка нескольких языков\r\nДругое -------- Wi-Fi, Bluetooth 5.2, четыре динамика, поддержка Dolby Atmos®, аудио высокого разрешения",
+      "goods_price": "16940.00",
+      "goods_img": "goods/iScreen_Shoter_-_Safari_-_251013165640.jpg",
+      "goods_category_id": 2,
+      "brand_id": 4
+    }
+  },
+  {
     "model": "users.warehouse",
     "pk": 1,
     "fields": {
@@ -124,6 +251,42 @@
     }
   },
   {
+    "model": "users.warehouse",
+    "pk": 5,
+    "fields": {
+      "warehouse_id": 1,
+      "goods_id": 5,
+      "goods_cnt": 3
+    }
+  },
+  {
+    "model": "users.warehouse",
+    "pk": 6,
+    "fields": {
+      "warehouse_id": 1,
+      "goods_id": 6,
+      "goods_cnt": 5
+    }
+  },
+  {
+    "model": "users.warehouse",
+    "pk": 7,
+    "fields": {
+      "warehouse_id": 1,
+      "goods_id": 7,
+      "goods_cnt": 8
+    }
+  },
+  {
+    "model": "users.warehouse",
+    "pk": 8,
+    "fields": {
+      "warehouse_id": 1,
+      "goods_id": 8,
+      "goods_cnt": 12
+    }
+  },
+  {
     "model": "users.status",
     "pk": 1,
     "fields": {
@@ -149,134 +312,6 @@
     "pk": 4,
     "fields": {
       "status_name": "Получен"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 10,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-24T15:49:56.688"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 12,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-24T15:51:20.668"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 13,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-24T15:53:58.245"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 14,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-24T15:57:56.406"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 15,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-24T16:03:13.542"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 29,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-25T12:43:42.071"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 30,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-25T12:45:51.569"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 31,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-25T12:51:45.530"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 32,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-25T12:58:29.657"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 33,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-25T12:59:30.737"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 34,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-25T13:00:21.909"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 35,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-25T15:54:39.238"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 36,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-25T16:12:24.026"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 37,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-25T16:15:16.271"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 38,
-    "fields": {
-      "customer_id": 1,
-      "order_date": "2025-09-25T17:17:29.761"
-    }
-  },
-  {
-    "model": "users.order",
-    "pk": 39,
-    "fields": {
-      "customer_id": 3,
-      "order_date": "2025-09-25T17:30:17.933"
     }
   },
   {
@@ -397,6 +432,134 @@
       "sdate": "2025-09-25T17:30:17.947",
       "edate": "2099-01-01T00:00:00",
       "order_status_id": 1
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 10,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-24T15:49:56"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 12,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-24T15:51:20"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 13,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-24T15:53:58"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 14,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-24T15:57:56"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 15,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-24T16:03:13"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 29,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-25T12:43:42"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 30,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-25T12:45:51"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 31,
+    "fields": {
+      "customer_id": 1,
+      "order_date": "2025-09-25T12:51:45.530"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 32,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-25T12:58:29"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 33,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-25T12:59:30"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 34,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-25T13:00:21"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 35,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-25T15:54:39"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 36,
+    "fields": {
+      "customer_id": 1,
+      "order_date": "2025-09-25T16:12:24.026"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 37,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-25T16:15:16"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 38,
+    "fields": {
+      "customer_id": 2,
+      "order_date": "2025-09-25T17:17:29"
+    }
+  },
+  {
+    "model": "users.order",
+    "pk": 39,
+    "fields": {
+      "customer_id": 3,
+      "order_date": "2025-09-25T17:30:17.933"
     }
   },
   {
