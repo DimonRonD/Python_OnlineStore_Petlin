@@ -6,14 +6,7 @@
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-<table>
-        <tr>
-            <td><a href="/goods/">Список товаров</a></td>
-            <td><a href="/order/{{ customer_id }}/">Мои заказы</a></td>
-            <td><a href="/cart/{{ customer_id }}/">Корзина</a></td>
-            <td><a href="/">Выход</a></td>
-        </tr>
-    </table>
+{% include "header.html" %}
 {% if new_order %}
     <h1>Новый заказ</h1>
     <table border="1">
@@ -41,7 +34,7 @@
                   <td colspan="1">Дата заказа: {{ order.order_date }}</td>
                   {% for statuses in order_statuses %}
                     {% if statuses.order_id.order_id == order.order_id %}
-                        <td colspan="1"><a href="/order/{{ customer_id }}/{{ order.order_id }}/">Статус заказа: {{ statuses.order_status_id.status_name }}</a></td>
+                        <td colspan="1"><a href="/order/{{ order.order_id }}/">Статус заказа: {{ statuses.order_status_id.status_name }}</a></td>
                     {% endif %}
                   {% endfor %}
               </tr>

@@ -16,33 +16,16 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
 from .settings import MEDIA_URL, MEDIA_ROOT
 
-from users.views import (goods_list,
-                         goods_detail,
-                         cart,
-                         add_to_cart,
-                         order,
-                         order_detail,
-                         auth_site,
-                         register,
-                         )
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", auth_site),
-    path("redirect", auth_site, name="redirect"),
-    path('goods/', goods_list, name='goods_list'),
-    path('goods/<int:customer_id>/<int:pk>/', goods_detail, name='goods_detail'),
-    path('cart/<int:customer_id>/', cart, name='cart'),
-    path('add_to_cart/', add_to_cart, name='add_to_cart'),
-    path('order/', order, name='order'),
-    path('order/<int:customer_id>/', order, name='order'),
-    path('order/<int:customer_id>/<int:order_id>/', order_detail, name='order_detail'),
-    path('register', register, name='register'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path("", include("users.urls"))
+]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

@@ -6,14 +6,7 @@
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-    <table>
-        <tr>
-            <td><a href="/goods/">Список товаров</a></td>
-            <td><a href="/order/{{ customer_id }}/">Мои заказы</a></td>
-            <td><a href="/cart/{{ customer_id }}/">Корзина</a></td>
-            <td><a href="/">Выход</a></td>
-        </tr>
-    </table>
+{% include "header.html" %}
     <h1>Корзина</h1>
     <table border="1">
         {% if cart %}
@@ -34,7 +27,7 @@
     </table>
 
   <h1>Сделать заказ</h1>
-<form method="post" action="{% url 'order' %}{{ customer_id }}/">
+<form method="post" action="{% url 'order' %}">
   {% csrf_token %}
   {{ form.as_p }}
     <input type="hidden" name="customer_id" value="{{ customer_id }}">

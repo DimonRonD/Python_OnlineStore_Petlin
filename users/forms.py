@@ -1,10 +1,10 @@
 from django import forms
-from .models import Goods, Cart
+from django.forms import ModelForm
+from .models import Good, Cart, Customer
 
 class CartForm(forms.Form):
-    product = forms.ModelChoiceField(queryset=Goods.objects.all())
+    product = forms.ModelChoiceField(queryset=Good.objects.all())
     quantity = forms.IntegerField(min_value=0)
-    customer_id = forms.IntegerField(widget=forms.HiddenInput())
 
 class OrderForm(forms.Form):
     # name = forms.CharField()
@@ -16,14 +16,26 @@ class OrderForm(forms.Form):
 class ToCartForm(forms.Form):
     quantity = forms.IntegerField(min_value=0)
 
-class LoginForm(forms.Form):
-    calendar = forms.CharField(label="calendar", max_length=100)
+class LoginForm(ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['email', 'password']
+        widgets = {
+            "password": forms.PasswordInput
+        }
 
-class RegisterForm(forms.Form):
-    customer_name = forms.CharField(max_length=50)
-    customer_surname = forms.CharField(max_length=50)
-    customer_patronym = forms.CharField(max_length=100)
-    customer_address = forms.CharField(max_length=300)
-    customer_email = forms.EmailField()
-    customer_phone = forms.CharField(max_length=15)
-    customer_password = forms.CharField(max_length=10, widget=forms.PasswordInput())
+class RegisterForm(ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['email', 'first_name', 'last_name', 'patronym_name', 'phone', 'password']
+        widgets = {
+            "password": forms.PasswordInput
+        }
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.username = user.email
+        user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
+        return user
