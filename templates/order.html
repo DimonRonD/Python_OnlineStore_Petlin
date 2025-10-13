@@ -25,6 +25,9 @@
         {% endfor %}
     </table>
 {% endif %}
+{% if answer %}
+    <h1>{{ answer }}</h1>
+{% endif %}
   <h1>Ваши заказы</h1>
     {% if orders %}
         {% for order in orders %}
